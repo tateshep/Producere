@@ -9,6 +9,8 @@ class App extends Component{
   };
 
   async componentDidMount() {
+    // is this the best place to make fetch call? Hoping to find out
+    // in API section of class
     try {
       const res = await fetch ('http://127.0.0.1:8000/api/');
       const todos = await res.json();
