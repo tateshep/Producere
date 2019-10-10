@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'todos',
+    'quests',
 ]
 
 REST_FRAMEWORK = {

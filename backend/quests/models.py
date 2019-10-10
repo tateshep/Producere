@@ -4,6 +4,7 @@ class Journey(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    created_date = models.DateTimeField(null=True, blank=True,auto_now_add=True)
     due_date = models.DateTimeField(null=True, blank=True)
 
     class Meta:
@@ -19,7 +20,8 @@ class Quest(models.Model):
     description = models.TextField(null=True, blank=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     due_date = models.DateTimeField(null=True, blank=True)
-    journeys = models.ManyToMany(Journey,blank=True)
+    created_date = models.DateTimeField(null=True, blank=True,auto_now_add=True)
+    journeys = models.ManyToManyField(Journey,blank=True)
 
     class Meta:
         ordering = ('title',)
