@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Todos from '../components/Todos/Todos';
 
 // This app displays the todos in a shitty list
 class App extends Component{
@@ -22,16 +22,7 @@ class App extends Component{
 
   render() {
     return (
-      <div>
-        {this.state.todos.map(item => (
-          <div key={item.id}>
-            <h1>{item.title}</h1>
-            <span>{item.description}</span>
-            <p>{item.due_date} </p>
-          </div>
-        ))}
-
-      </div>
+      <Todos todos={this.state.todos } ></Todos>
     );
   }
 }

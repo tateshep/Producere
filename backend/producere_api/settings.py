@@ -62,6 +62,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
+    'http://localhost:3006',
+
 )
 
 ROOT_URLCONF = 'producere_api.urls'

@@ -10,6 +10,5 @@ class TodoSerializer(serializers.ModelSerializer):
             'created',
             'due_date',
             'author'
-
         )
         model = Todo
