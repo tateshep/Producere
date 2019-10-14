@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Todos from '../components/Todos/Todos';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 // This app displays the todos in a shitty list
 class App extends Component{
@@ -24,7 +25,13 @@ class App extends Component{
 
   render() {
     return (
-      <Todos todos={this.state.todos } ></Todos>
+      <div>
+
+        <Cockpit></Cockpit>
+        <Todos todos={this.state.todos } ></Todos>
+
+      </div>
+
     );
   }
 }
