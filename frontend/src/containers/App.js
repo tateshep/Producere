@@ -9,26 +9,12 @@ class App extends Component{
     todos: []
   };
 
-  async componentDidMount() {
-    // is this the best place to make fetch call? Hoping to find out
-    // in API section of class
-    try {
-      const res = await fetch ('http://127.0.0.1:8000/api/todos/');
-      const todos = await res.json();
-      this.setState({
-        todos
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   render() {
     return (
       <div>
 
         <Cockpit></Cockpit>
-        <Todos todos={this.state.todos } ></Todos>
+        <Todos></Todos>
 
       </div>
 

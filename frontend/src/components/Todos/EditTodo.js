@@ -1,10 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-
+const style = {
+    margin: '10px',
+}
 const editTodo = () => {
     return (
-            <Button variant="outlined">Edit</Button>
+            <Button style={style} className="Buttonwspacing" variant="outlined">Edit</Button>
     )
 }
 

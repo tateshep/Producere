@@ -1,30 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
+
 import Container from '@material-ui/core/Container';
 import EditTodo from './EditTodo';
 import DeleteTodo from './DeleteTodo';
 import CreateTodo from './CreateTodo';
 import './Todos.css';
 
+class Todos extends Component {
+  state = {
+    todos: [],
+  }
 
-const Todos = (props) => {
+  componentDidMount () {
+    axios.get('http://127.0.0.1:8000/api/todos/')
+      .then(response => {
+        const data = response.data;
+        this.setState({todos:data})
+      });
+  }
+
+  render () {
+
+    const todos = this.state.todos.map((todo,index) => {
+      return (
+        <div key={index}>
+            <h1>{todo.title}</h1>
+            <span>{todo.description}</span>
+            <p>{todo.due_date} </p>
+            <EditTodo></EditTodo>
+            <DeleteTodo></DeleteTodo>
+        </div>
+      );
+    })
+
     return (
         <div>
           <Container>
+           { todos }
             <CreateTodo></CreateTodo>
-        {props.todos.map(item => (
-          <div key={item.id}>
-            <h1>{item.title}</h1>
-            <span>{item.description}</span>
-            <p>{item.due_date} </p>
-            <EditTodo className="button-w-spacing"></EditTodo>
-            <DeleteTodo></DeleteTodo>
-          </div>
-        ))}
-          
           </Container>
 
       </div>
-    )
-}
+    );
+  };
+};
 
 export default Todos;
