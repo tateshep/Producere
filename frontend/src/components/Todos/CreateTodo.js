@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'date-fns';
+import { format } from 'date-fns';
 
 
 import { withStyles } from '@material-ui/core/styles'; // this uses HOCs somehow. Still foggy on this but it seems to be working
@@ -40,6 +41,9 @@ const useStyles = () => ({
     }
 });
 
+const currentDate = format(new Date(), 'MM/dd/yyyy');
+const currentTime = format(new Date(), 'HH:mm:ss');
+
 class CreateTodo extends Component {
     // would like this to open a modal with a form
     // that will submit a new todo to the API0
@@ -48,7 +52,8 @@ class CreateTodo extends Component {
         title: '',
         content: '',
         author: '',
-        dueDate: '',
+        dueDate: currentDate,
+        dueTime: currentTime,
     }
 
     createTodoHandler = () => {
@@ -57,12 +62,21 @@ class CreateTodo extends Component {
             content: this.state.content,
             author: this.state.author,
             dueDate: this.state.dueDate,
+            dueTime: this.state.dueTime,
         }
         console.log(data)
     //     axios.post('http://127.0.0.1:8000/api/todos/', data)
     //     .then(response => {
     //         console.log(response);
     //   }); 
+    }
+
+    dateChangeHandler(value) {
+        const myDate = format(value,"MM/dd/yyyy")
+        this.setState({dueDate:myDate});
+    }
+    timeChangeHandler(value) {
+        const myTime = format(value,"HH:mm:ss");
     }
 
     render () {
@@ -86,24 +100,13 @@ class CreateTodo extends Component {
                         margin="normal"
                         multiline
                         fullWidth
-                        label="Content" 
+                        label="Description" 
                         value={this.state.content} 
                         cols="30" 
                         rows="4" 
                         onChange={(event) => this.setState({content:event.target.value})}
                          />
-                        
-                        <InputLabel htmlFor="author">Author</InputLabel>
-                        <Select
-                        className= {classes.Select}
-                        value={this.state.author}
-                        onChange={(event) => this.setState({author:event.target.value})}
-                        >
-                            <MenuItem value='Tate'>Tate</MenuItem>
-                            <MenuItem value='Gandalf'>Gandalf</MenuItem>
-                            <MenuItem value='Whatever'>Whatever</MenuItem>
-                        </Select>
-                    
+                                
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             margin="normal"
@@ -111,13 +114,35 @@ class CreateTodo extends Component {
                             label="Due Date"
                             format="MM/dd/yyyy"
                             value={this.state.dueDate}
-                            onChange={(event) => this.setState({dueDate:event.target.value})}
+                            onChange={ (event) => this.dateChangeHandler(event) }
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }}
                         />
 
+                        <KeyboardTimePicker
+                            margin="normal"
+                            id="time-picker"
+                            label="Time picker"
+                            value={this.state.currentTime}
+                            onChange={ (event) => this.timeChangeHandler(event)}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                            }}
+                        />
+
                     </MuiPickersUtilsProvider>
+
+                    <InputLabel htmlFor="author">Author</InputLabel>
+                        <Select
+                        className= {classes.Select}
+                        value={this.state.author}
+                        onChange={(event) => this.setState({author:event.target.value})}
+                        >
+                            <MenuItem value='Tate'>Tate</MenuItem> 
+                            <MenuItem value='Gandalf'>Gandalf</MenuItem>
+                            <MenuItem value='Whatever'>Whatever</MenuItem>
+                        </Select>
 
                     <Button className={classes.myBtn} variant="contained" color="Primary" onClick={() => this.createTodoHandler()}>Add</Button>
                 </Paper>
@@ -129,3 +154,5 @@ class CreateTodo extends Component {
 }
 
 export default withStyles(useStyles)(CreateTodo);
+
+// onChange={(event) => this.setState({dueDate:event.target.value})}
