@@ -12,10 +12,8 @@ class App extends Component{
   render() {
     return (
       <div>
-
         <Cockpit></Cockpit>
         <Todos></Todos>
-
       </div>
 
     );
