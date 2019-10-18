@@ -15,7 +15,6 @@ class App extends Component{
         <Cockpit></Cockpit>
         <Todos></Todos>
       </div>
-
     );
   }
 }

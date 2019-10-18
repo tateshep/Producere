@@ -79,7 +79,8 @@ class CreateTodo extends Component {
         }
         // dueTime: this.state.dueTime,
         console.log(data)
-        
+
+        // The post request is not working because we need to figure out authentication.
         axios.post('http://127.0.0.1:8000/api/todos/', data)
         .then(response => {
                 console.log(response);
@@ -89,8 +90,8 @@ class CreateTodo extends Component {
     }
 
     dateChangeHandler(value) {
-        const myDate = format(value,"MM/dd/yyyy")
-        this.setState({dueDate:myDate});
+        // const myDate = format(value,"MM/dd/yyyy")
+        this.setState({dueDate:null});
     }
     timeChangeHandler(value) {
         const myTime = format(value,"HH:mm:ss");
@@ -156,7 +157,7 @@ class CreateTodo extends Component {
                         value={this.state.author}
                         onChange={(event) => this.setState({author:event.target.value})}
                         >
-                            <MenuItem value='Tate'>Tate</MenuItem> 
+                            <MenuItem value='tshepherd'>Tshepherd</MenuItem> 
                             <MenuItem value='Gandalf'>Gandalf</MenuItem>
                             <MenuItem value='Whatever'>Whatever</MenuItem>
                         </Select>
@@ -167,7 +168,7 @@ class CreateTodo extends Component {
 
 
         );
-    }
+    }s
 }
 
 export default withStyles(useStyles)(CreateTodo);
