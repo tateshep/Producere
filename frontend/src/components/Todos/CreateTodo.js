@@ -48,27 +48,44 @@ class CreateTodo extends Component {
     // would like this to open a modal with a form
     // that will submit a new todo to the API0
 
+    
     state = {
+        id: '',
         title: '',
-        content: '',
+        description: '',
         author: '',
         dueDate: currentDate,
         dueTime: currentTime,
     }
+    
+    
+    componentDidMount() {
+        // need to get the greatest ID from the api, and use that as a starting point for the
+        // id that will be submitted in the post request
+        axios.get('http://127.0.0.1:8000/api/todos/')
+            .then(response => {
+                const latestTodo = response.data[response.data.length - 1];
+                this.setState({id:latestTodo.id + 1})
+            });
+    }
 
     createTodoHandler = () => {
         const data = {
-            title: this.state.title,
-            content: this.state.content,
-            author: this.state.author,
-            dueDate: this.state.dueDate,
-            dueTime: this.state.dueTime,
+            'id': this.state.id,
+            'title': this.state.title,
+            'description': this.state.description,
+            'due_date': this.state.dueDate,
+            'author': this.state.author,
         }
+        // dueTime: this.state.dueTime,
         console.log(data)
-    //     axios.post('http://127.0.0.1:8000/api/todos/', data)
-    //     .then(response => {
-    //         console.log(response);
-    //   }); 
+        
+        axios.post('http://127.0.0.1:8000/api/todos/', data)
+        .then(response => {
+                console.log(response);
+            }); 
+
+        this.setState({id:this.state.id + 1})
     }
 
     dateChangeHandler(value) {
@@ -101,10 +118,10 @@ class CreateTodo extends Component {
                         multiline
                         fullWidth
                         label="Description" 
-                        value={this.state.content} 
+                        value={this.state.description} 
                         cols="30" 
                         rows="4" 
-                        onChange={(event) => this.setState({content:event.target.value})}
+                        onChange={(event) => this.setState({description:event.target.value})}
                          />
                                 
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
